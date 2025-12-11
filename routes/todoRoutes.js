@@ -12,7 +12,7 @@ router.post("/", (req, res) => {
     });
 });
 
-// READ - Ambil semua data
+//  READ - Ambil semua data
 router.get("/", (req, res) => {
     db.query("SELECT * FROM tb_todo", (err, results) => {
         if (err) return res.status(500).send(err);
@@ -20,7 +20,7 @@ router.get("/", (req, res) => {
     });
 });
 
-// READ by ID
+//  READ by ID
 router.get("/:id", (req, res) => {
     const { id } = req.params;
     db.query("SELECT * FROM tb_todo WHERE id = ?", [id], (err, result) => {
@@ -29,19 +29,18 @@ router.get("/:id", (req, res) => {
     });
 });
 
-// UPDATE - Ubah data
+//  UPDATE - Ubah data
 router.put("/:id", (req, res) => {
     const { id } = req.params;
     const { todo, description } = req.body;
-    console.log(todo);
-    const sql = "UPDATE tb_todo SET todo=?, description=? WHERE id=1";
+    const sql = "UPDATE tb_todo SET todo=?, description=? WHERE id=?";
     db.query(sql, [todo, description, id], (err) => {
         if (err) return res.status(500).send(err);
         res.json({ message: "Todo berhasil diperbarui!" });
     });
 });
 
-// DELETE - Hapus data
+//  DELETE - Hapus data
 router.delete("/:id", (req, res) => {
     const { id } = req.params;
     db.query("DELETE FROM tb_todo WHERE id=?", [id], (err) => {
